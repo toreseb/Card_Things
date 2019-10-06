@@ -5,6 +5,8 @@ int Card;
 Boolean MDown = false;
 int TSize = 20;
 int Points = 0;
+int[] cardDrawn = new int[52];
+int cardCounter =0;
 
 
 void setup(){
@@ -12,6 +14,7 @@ void setup(){
   frameRate(60);  
   clear();
 }
+
 
 void draw(){
   
@@ -22,6 +25,12 @@ void draw(){
     for (int f=0; f < Draw; f++){
       int CNumber = (int)random(1,Cards+1);
       int Type = (int)random(1,Types+1);
+      
+      
+      cardDrawn[cardCounter] = 100*Type + CNumber;
+      cardCounter++;
+      println(cardDrawn);
+      
       if (Type == 1){
         println("You drew",CNumber,"of Hearts");
       }
