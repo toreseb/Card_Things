@@ -2,13 +2,12 @@ int Cards = 2;
 int Types = 2;
 int Draw = 1;
 int Card;
-int i;
 Boolean MDown = false;
 int TSize = 20;
 int Points = 0;
 int[] cardDrawn = new int[Cards*Types];
 int cardCounter =0;
-int nCards = 0;
+
 
 
 void setup(){
@@ -29,10 +28,6 @@ void draw(){
       int Type = (int)random(1,Types+1);
       cardDrawn[cardCounter] = 100*Type + CNumber;
       int cardNow = cardDrawn[cardCounter];
-      nCards++;
-      if (nCards >= Cards*Types){
-        break;
-      }
       println("Now"+cardNow);
       for (int l=0;l<cardCounter;l++){
         println("l"+cardDrawn[l]);
