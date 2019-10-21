@@ -5,11 +5,16 @@ int Card;
 Boolean MDown = false;
 Boolean GameReset = false;
 int TSize = 20;
+int Type; int CNumber;
 int Points = 0;
+int cardNow;
 int[] cardWorth = new int[Cards*Types];
-int[] cardDrawn = new int[Cards*Types];
+ArrayList<Integer> cardDrawn = new ArrayList <Integer>();
+ArrayList<Integer> cardHand = new ArrayList <Integer>();
 int cardCounter = 0;
-boolean BreakAgain = false;
+boolean Same = true;
+boolean Reset = false;
+int sameTimes = 0;
 
 
 
@@ -22,39 +27,51 @@ void setup(){
 
 void draw(){
   
-  
+  if (cardDrawn.size() == 0){
+    cardDrawn.add(0);
+  }
   if (mousePressed && MDown == false){ 
     clear();
     MDown = true;
-    if(cardCounter+1 == Cards*Types){
-    noLoop();
-    }
+    
     if(GameReset == true){
       Points = 0;
       cardCounter = 0;
     }
     for (int f=0; f < Draw; f++){
-      int CNumber = (int)random(1,Cards+1);
-      int Type = (int)random(1,Types+1);
-      int cardNow = 100*Type + CNumber;
-      println("Now"+cardNow);
-      for (int l=0;l<Cards*Types;l++){
-        println(cardDrawn[l]);
-        if (cardDrawn[l]==cardNow){
-          println("Same");
-          f-=1;
-          BreakAgain = true;
+      if (Same == true){
+        CNumber = (int)random(1,Cards+1);
+        Type = (int)random(1,Types+1);
+        cardNow = 100 * Type + CNumber;
+        sameTimes = 0;
+        for (int l=0;l<1000;l++){
+        if (Reset == true){
           break;
+        }
+          if (cardDrawn.get(l) != cardNow){
+          cardDrawn.add(cardNow);
+          sameTimes +=1;
+          if (sameTimes == 1000){
+            Reset = true;
+            break;
+          }
+          Same = false;
+          continue;
+        }
+        if (cardDrawn.get(l)==cardNow){
+          Same = true;
+          break;
+        }
           
         }
         
       }
-      if(BreakAgain){
-        break;
       }
-      cardDrawn[cardCounter] = cardNow;
+      
+      cardHand.add(cardNow);
       cardCounter++;
-      println(cardDrawn);
+      println("CardDrawn"+cardDrawn);
+      println("CardHand"+cardHand);
       
       if (Type == 1){
         println("You drew",CNumber,"of Hearts");
@@ -85,7 +102,6 @@ void draw(){
         GameReset = true;
       }
     }
-  }
   if (MDown == true && !mousePressed){
       MDown = false;
   }
