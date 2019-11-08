@@ -32,6 +32,10 @@ class DrawCard {
   
   }
   
+  void cardreset(){
+    drawncard = null;
+    
+  }
 
   
   
