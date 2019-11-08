@@ -7,8 +7,8 @@ ClickBox      Box1 = new ClickBox();
 ArrayList<String> CardsDeck = new ArrayList<String>();
 ArrayList<Integer> CardsValue = new ArrayList<Integer>();
 int decks = 1;
-int cards = 5;
-int types = 2;
+int cards = 13;
+int types = 4;
 int drawncardvalue;
 boolean startgame=true;
 boolean pressed=true;
@@ -37,27 +37,35 @@ void draw(){
     cbox = true;
     Box1.cBox();
     cbox = false;
+    
+    
+    if (CardsDeck.size() == 0 || lost || won){
+    x++;
+    
+      if (x ==1){
+        startgame = true;
+        lost = false;
+        won = false;
+        x = 0;
+        Points1.gamewipe();
+      }
+    }else{
     DrawnCard.drawcard();
     Points1.points();
     println(CardsDeck);
     println(CardsValue);
+    }
   }else{
     Box1.cBox();
   }
-  
-  DrawnCard.makecard();
-  Points1.checkpoints();
-  if (CardsDeck.size() == 0 || lost || won){
-    x++;
-    text("New Game?",10,400);
-    
-    if (x ==2){
-      startgame = true;
-      lost = false;
-      won = false;
-      x = 0;
-      Points1.gamewipe();
-    }
+  if(CardsDeck.size() == 0 || lost || won){
+      text("New Game?",10,400);
+      DrawnCard.cardreset();
+  }else{
+    DrawnCard.makecard();
   }
+  
+  Points1.checkpoints();
+  
 
 }
